@@ -3,7 +3,7 @@ package com.mvc.dto;
 import java.math.BigDecimal;
 
 public record ProductUpdateDto(
-        Long id,
+        Long productId,
 
         String name,
 
@@ -11,6 +11,6 @@ public record ProductUpdateDto(
 
         BigDecimal price,
 
-        int stock
+        int quantityInStock
 ) {
 }

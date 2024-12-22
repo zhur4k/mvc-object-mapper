@@ -12,7 +12,7 @@ public class ProductCreateMapper implements Function<ProductCreateDto, Product> 
         product.setDescription(productCreateDto.description());
         product.setName(productCreateDto.name());
         product.setPrice(productCreateDto.price());
-        product.setStock(productCreateDto.stock());
+        product.setQuantityInStock(productCreateDto.quantityInStock());
         return product;
     }
 }

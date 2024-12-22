@@ -9,11 +9,11 @@ public class OrderCreateMapper implements Function<OrderCreateDto, Order> {
     @Override
     public Order apply(OrderCreateDto orderCreateDto) {
         Order order = new Order();
-        order.setAddress(orderCreateDto.address());
         order.setCustomer(orderCreateDto.customer());
-        order.setPrice(orderCreateDto.price());
-        order.setStatus(orderCreateDto.status());
-        order.setOrderProducts(orderCreateDto.orderProducts());
+        order.setOrderDate(orderCreateDto.orderDate());
+        order.setTotalPrice(orderCreateDto.totalPrice());
+        order.setOrderStatus(orderCreateDto.orderStatus());
+        order.setShippingAddress(orderCreateDto.shippingAddress());
         return order;
     }
 }

@@ -3,66 +3,77 @@ package com.mvc.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long orderId;
 
-    private String address;
+    private Status orderStatus;
 
-    private BigDecimal price;
+    private LocalDateTime orderDate;
 
-    private Status status;
+    private BigDecimal totalPrice;
+
+    private String shippingAddress;
 
     @OneToMany(mappedBy = "order_id")
-    private Set<OrderProduct> orderProducts = new HashSet<>();
+    private List<Product> products = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
-    public Long getId() {
-        return id;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
-    public String getAddress() {
-        return address;
+    public Status getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setOrderStatus(Status orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public LocalDateTime getOrderDate() {
+        return orderDate;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
     }
 
-    public Status getStatus() {
-        return status;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public Set<OrderProduct> getOrderProducts() {
-        return orderProducts;
+    public String getShippingAddress() {
+        return shippingAddress;
     }
 
-    public void setOrderProducts(Set<OrderProduct> orderProducts) {
-        this.orderProducts = orderProducts;
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Customer getCustomer() {

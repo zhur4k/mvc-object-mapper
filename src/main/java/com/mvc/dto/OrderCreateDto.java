@@ -1,21 +1,24 @@
 package com.mvc.dto;
 
 import com.mvc.model.Customer;
-import com.mvc.model.OrderProduct;
+import com.mvc.model.Product;
 import com.mvc.model.Status;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public record OrderCreateDto(
 
-        String address,
+        Status orderStatus,
 
-        BigDecimal price,
+        LocalDateTime orderDate,
 
-        Status status,
+        BigDecimal totalPrice,
 
-        Set<OrderProduct> orderProducts,
+        String shippingAddress,
+
+        List<Product> products,
 
         Customer customer
 ) {
