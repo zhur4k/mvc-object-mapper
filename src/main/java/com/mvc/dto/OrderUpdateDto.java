@@ -1,16 +1,20 @@
 package com.mvc.dto;
 
+import com.mvc.model.OrderProduct;
+import com.mvc.model.Status;
+
 import java.math.BigDecimal;
+import java.util.Set;
 
 public record OrderUpdateDto(
         Long id,
 
-        String name,
-
-        String description,
+        String address,
 
         BigDecimal price,
 
-        int stock
+        Status status,
+
+        Set<OrderProduct> orderProducts
 ) {
 }
