@@ -35,7 +35,7 @@ public class ProductController {
         return ResponseEntity.ok(objectMapper.writeValueAsString(productService.findById(id)));
     }
     @PostMapping("/create")
-    public ResponseEntity<?> createProduct(@RequestBody String productCreateDtoJson) throws JsonProcessingException {
+    public ResponseEntity<?> createProduct(@RequestBody String productCreateDtoJson) throws Exception {
         ProductCreateDto productCreateDto = objectMapper.readValue(productCreateDtoJson, ProductCreateDto.class);
         var violation = validator.validate(productCreateDto);
         if(violation.isEmpty()){
@@ -46,7 +46,7 @@ public class ProductController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateProduct(@RequestBody String productUpdateDtoJson) throws JsonProcessingException {
+    public ResponseEntity<?> updateProduct(@RequestBody String productUpdateDtoJson) throws Exception {
         ProductUpdateDto productUpdateDto = objectMapper.readValue(productUpdateDtoJson, ProductUpdateDto.class);
         var violation = validator.validate(productUpdateDto);
         if(violation.isEmpty()){

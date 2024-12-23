@@ -1,5 +1,6 @@
 package com.mvc.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mvc.dto.OrderCreateDto;
 import com.mvc.dto.OrderUpdateDto;
@@ -35,8 +36,8 @@ public class OrderController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createOrder(@RequestBody String orderCreateDtoJson) {
-        OrderCreateDto orderCreateDto = objectMapper.convertValue(orderCreateDtoJson, OrderCreateDto.class);
+    public ResponseEntity<?> createOrder(@RequestBody String orderCreateDtoJson) throws Exception {
+        OrderCreateDto orderCreateDto = objectMapper.readValue(orderCreateDtoJson, OrderCreateDto.class);
         var violations = validator.validate(orderCreateDto);
         if (violations.isEmpty()) {
             throw new IllegalArgumentException();
@@ -46,8 +47,8 @@ public class OrderController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateOrder(@RequestBody String orderUpdateDtoJson) {
-        OrderUpdateDto orderUpdateDto = objectMapper.convertValue(orderUpdateDtoJson, OrderUpdateDto.class);
+    public ResponseEntity<?> updateOrder(@RequestBody String orderUpdateDtoJson) throws Exception {
+        OrderUpdateDto orderUpdateDto = objectMapper.readValue(orderUpdateDtoJson, OrderUpdateDto.class);
         var violations = validator.validate(orderUpdateDto);
         if (violations.isEmpty()) {
             throw new IllegalArgumentException();
