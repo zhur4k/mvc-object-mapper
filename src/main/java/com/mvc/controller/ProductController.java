@@ -38,7 +38,7 @@ public class ProductController {
     public ResponseEntity<?> createProduct(@RequestBody String productCreateDtoJson) throws Exception {
         ProductCreateDto productCreateDto = objectMapper.readValue(productCreateDtoJson, ProductCreateDto.class);
         var violation = validator.validate(productCreateDto);
-        if(violation.isEmpty()){
+        if(!violation.isEmpty()){
             throw new IllegalArgumentException();
         }
         productService.create(productCreateDto);
@@ -49,7 +49,7 @@ public class ProductController {
     public ResponseEntity<?> updateProduct(@RequestBody String productUpdateDtoJson) throws Exception {
         ProductUpdateDto productUpdateDto = objectMapper.readValue(productUpdateDtoJson, ProductUpdateDto.class);
         var violation = validator.validate(productUpdateDto);
-        if(violation.isEmpty()){
+        if(!violation.isEmpty()){
             throw new IllegalArgumentException();
         }
         productService.update(productUpdateDto);

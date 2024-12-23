@@ -39,7 +39,7 @@ public class OrderController {
     public ResponseEntity<?> createOrder(@RequestBody String orderCreateDtoJson) throws Exception {
         OrderCreateDto orderCreateDto = objectMapper.readValue(orderCreateDtoJson, OrderCreateDto.class);
         var violations = validator.validate(orderCreateDto);
-        if (violations.isEmpty()) {
+        if (!violations.isEmpty()) {
             throw new IllegalArgumentException();
         }
         orderService.create(orderCreateDto);
@@ -50,7 +50,7 @@ public class OrderController {
     public ResponseEntity<?> updateOrder(@RequestBody String orderUpdateDtoJson) throws Exception {
         OrderUpdateDto orderUpdateDto = objectMapper.readValue(orderUpdateDtoJson, OrderUpdateDto.class);
         var violations = validator.validate(orderUpdateDto);
-        if (violations.isEmpty()) {
+        if (!violations.isEmpty()) {
             throw new IllegalArgumentException();
         }
         orderService.update(orderUpdateDto);
