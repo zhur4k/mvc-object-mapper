@@ -4,6 +4,7 @@ import com.mvc.dto.ProductCreateDto;
 import com.mvc.dto.ProductUpdateDto;
 import com.mvc.dto.mapper.ProductCreateMapper;
 import com.mvc.dto.mapper.ProductUpdateMapper;
+import com.mvc.exception.NotFoundException;
 import com.mvc.model.Product;
 import com.mvc.repository.ProductRepository;
 import com.mvc.service.ProductService;
@@ -41,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(RuntimeException::new);
+        Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("Product with id" + id + "not found"));
         productRepository.delete(product);
     }
 }

@@ -4,6 +4,7 @@ import com.mvc.dto.OrderCreateDto;
 import com.mvc.dto.OrderUpdateDto;
 import com.mvc.dto.mapper.OrderCreateMapper;
 import com.mvc.dto.mapper.OrderUpdateMapper;
+import com.mvc.exception.NotFoundException;
 import com.mvc.model.Order;
 import com.mvc.repository.OrderRepository;
 import com.mvc.service.OrderService;
@@ -40,7 +41,7 @@ public class OrdersServiceImpl implements OrderService {
 
     @Override
     public void delete(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(RuntimeException::new);
+        Order order = orderRepository.findById(id).orElseThrow(() -> new NotFoundException("Order with id " + id + " not found"));
         orderRepository.delete(order);
     }
 }
