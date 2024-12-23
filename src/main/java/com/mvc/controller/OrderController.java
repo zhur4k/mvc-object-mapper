@@ -1,10 +1,8 @@
 package com.mvc.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mvc.dto.OrderCreateDto;
 import com.mvc.dto.OrderUpdateDto;
-import com.mvc.model.Order;
 import com.mvc.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,15 +27,20 @@ public class OrderController {
         return ResponseEntity.ok(objectMapper.writeValueAsString(orderService.findAll()));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getOrderById(@PathVariable Long id) throws Exception {
+        return ResponseEntity.ok(objectMapper.writeValueAsString(orderService.findById(id)));
+    }
+
     @PostMapping("/create")
-    public ResponseEntity<?> createOrder(@RequestBody OrderCreateDto orderCreateDto) {
-        orderService.create(orderCreateDto);
+    public ResponseEntity<?> createOrder(@RequestBody String orderCreateDtoJson) {
+        orderService.create(objectMapper.convertValue(orderCreateDtoJson, OrderCreateDto.class));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateOrder(@RequestBody OrderUpdateDto orderUpdateDto) {
-        orderService.update(orderUpdateDto);
+    public ResponseEntity<?> updateOrder(@RequestBody String orderUpdateDtoJson) {
+        orderService.update(objectMapper.convertValue(orderUpdateDtoJson, OrderUpdateDto.class));
         return ResponseEntity.ok().build();
     }
 
