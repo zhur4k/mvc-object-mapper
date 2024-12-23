@@ -1,5 +1,6 @@
 package com.mvc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +18,7 @@ public class Order {
 
     private Status orderStatus;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime orderDate;
 
     private BigDecimal totalPrice;

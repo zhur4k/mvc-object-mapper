@@ -1,9 +1,11 @@
 package com.mvc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "products")
+@Table(name = "customers")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
