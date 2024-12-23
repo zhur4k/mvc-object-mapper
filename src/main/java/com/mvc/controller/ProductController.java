@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mvc.dto.ProductCreateDto;
 import com.mvc.dto.ProductUpdateDto;
 import com.mvc.service.ProductService;
+import jakarta.validation.Validator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,12 @@ public class ProductController {
 
     private final ObjectMapper objectMapper;
 
-    public ProductController(ProductService productService, ObjectMapper objectMapper) {
+    private final Validator validator;
+
+    public ProductController(ProductService productService, ObjectMapper objectMapper, Validator validator) {
         this.productService = productService;
         this.objectMapper = objectMapper;
+        this.validator = validator;
     }
 
     @GetMapping
@@ -32,13 +36,23 @@ public class ProductController {
     }
     @PostMapping("/create")
     public ResponseEntity<?> createProduct(@RequestBody String productCreateDtoJson) throws JsonProcessingException {
-        productService.create(objectMapper.readValue(productCreateDtoJson, ProductCreateDto.class));
+        ProductCreateDto productCreateDto = objectMapper.readValue(productCreateDtoJson, ProductCreateDto.class);
+        var violation = validator.validate(productCreateDto);
+        if(violation.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+        productService.create(productCreateDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/update")
     public ResponseEntity<?> updateProduct(@RequestBody String productUpdateDtoJson) throws JsonProcessingException {
-        productService.update(objectMapper.readValue(productUpdateDtoJson, ProductUpdateDto.class));
+        ProductUpdateDto productUpdateDto = objectMapper.readValue(productUpdateDtoJson, ProductUpdateDto.class);
+        var violation = validator.validate(productUpdateDto);
+        if(violation.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+        productService.update(productUpdateDto);
         return ResponseEntity.ok().build();
     }
 
