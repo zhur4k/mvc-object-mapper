@@ -10,6 +10,8 @@ public interface OrderService {
     
     List<Order> findAll();
 
+    Order findById(Long id);
+
     void create(OrderCreateDto order);
 
     void update(OrderUpdateDto order);

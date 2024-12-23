@@ -10,6 +10,8 @@ public interface ProductService {
 
     List<Product> findAll();
 
+    public Product findById(Long id);
+
     void create(ProductCreateDto product);
 
     void update(ProductUpdateDto product);
