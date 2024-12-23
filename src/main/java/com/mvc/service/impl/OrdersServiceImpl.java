@@ -30,6 +30,11 @@ public class OrdersServiceImpl implements OrderService {
     }
 
     @Override
+    public Order findById(Long id) {
+        return orderRepository.findById(id).orElseThrow(() -> new NotFoundException("Order with id " + id + " not found"));
+    }
+
+    @Override
     public void create(OrderCreateDto order) {
         orderRepository.save(orderCreateMapper.apply(order));
     }

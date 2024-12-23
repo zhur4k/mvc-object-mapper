@@ -31,6 +31,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product findById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new NotFoundException("Order with id " + id + " not found"));
+    }
+
+    @Override
     public void create(ProductCreateDto product) {
         productRepository.save(productCreateMapper.apply(product));
     }
