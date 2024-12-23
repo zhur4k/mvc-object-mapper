@@ -22,7 +22,7 @@ public class Order {
 
     private String shippingAddress;
 
-    @OneToMany(mappedBy = "order_id")
+    @ManyToMany(mappedBy = "order_id")
     private List<Product> products = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
