@@ -1,5 +1,7 @@
 package com.mvc.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mvc.dto.ProductCreateDto;
 import com.mvc.dto.ProductUpdateDto;
 import com.mvc.model.Product;
@@ -15,13 +17,16 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
+    private final ObjectMapper objectMapper;
+
+    public ProductController(ProductService productService, ObjectMapper objectMapper) {
         this.productService = productService;
+        this.objectMapper = objectMapper;
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        return ResponseEntity.ok(productService.findAll());
+    public ResponseEntity<?> getAllProducts() throws Exception {
+        return ResponseEntity.ok(objectMapper.writeValueAsString(productService.findAll()));
     }
 
     @PostMapping("/create")

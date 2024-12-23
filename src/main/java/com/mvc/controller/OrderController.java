@@ -1,5 +1,7 @@
 package com.mvc.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mvc.dto.OrderCreateDto;
 import com.mvc.dto.OrderUpdateDto;
 import com.mvc.model.Order;
@@ -15,13 +17,16 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
 
-    public OrderController(OrderService orderService) {
+    private final ObjectMapper objectMapper;
+
+    public OrderController(OrderService orderService, ObjectMapper objectMapper) {
         this.orderService = orderService;
+        this.objectMapper = objectMapper;
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getAllOrders() {
-        return ResponseEntity.ok(orderService.findAll());
+    public ResponseEntity<?> getAllOrders() throws Exception {
+        return ResponseEntity.ok(objectMapper.writeValueAsString(orderService.findAll()));
     }
 
     @PostMapping("/create")
